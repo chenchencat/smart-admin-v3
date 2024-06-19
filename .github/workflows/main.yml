@@ -1,0 +1,25 @@
+name: Sync with smart-admin
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天 UTC 时间的午夜执行同步
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Fetch upstream
+        run: git fetch https://github.com/1024-lab/smart-admin.git
+
+      - name: Merge upstream changes
+        run: git merge FETCH_HEAD --no-edit
+
+      - name: Push changes
+        run: |
+          git config --global user.email "230201030004@hhu.edu.cn"
+          git config --global user.name "chenchencat"
+          git push origin master
