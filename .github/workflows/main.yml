@@ -2,7 +2,7 @@ name: Sync with smart-admin
 
 on:
   schedule:
-    - cron: '*/1 * * * *'  # 每天 UTC 时间的午夜执行同步
+    - cron: '*/4 * * * *'  # 每天 UTC 时间的午夜执行同步
 
 jobs:
   sync:
@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # 更新到 v3 版本
         with:
           ref: master  # 使用你的目标分支
 
@@ -19,6 +19,5 @@ jobs:
           git remote add upstream https://github.com/1024-lab/smart-admin.git
           git fetch upstream
 
-      - name: Sync with upstream
-        run: |
-          git reset --hard upstream/master
+      - name: Rebase onto upstream changes
+        run: git rebase upstream/master
