@@ -11,15 +11,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: master  # 使用你的目标分支
 
-      - name: Fetch upstream
-        run: git fetch https://github.com/1024-lab/smart-admin.git
-
-      - name: Merge upstream changes
-        run: git merge FETCH_HEAD --no-edit
-
-      - name: Push changes
+      - name: Set up Git
         run: |
-          git config --global user.email "230201030004@hhu.edu.cn"
-          git config --global user.name "chenchencat"
-          git push origin master
+          git remote add upstream https://github.com/1024-lab/smart-admin.git
+          git fetch upstream
+
+      - name: Sync with upstream
+        run: |
+          git reset --hard upstream/master
