@@ -2,7 +2,7 @@ name: Sync with smart-admin
 
 on:
   schedule:
-    - cron: '0 4 * * *'  # 每天午夜 4 点执行同步
+    - cron: '26 4 * * *'  # 每天午夜 4 点执行同步
 
 jobs:
   sync:
